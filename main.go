@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	be, err := smtp.NewBackend(
+	backend, err := smtp.NewBackend(
 		os.Getenv("DISCORD_TOKEN"),
 		os.Getenv("SMTP_USERNAME"),
 		os.Getenv("SMTP_PASSWORD"),
@@ -19,18 +19,28 @@ func main() {
 		log.Fatal(err)
 	}
 
-	s := gosmtp.NewServer(be)
+	server := gosmtp.NewServer(backend)
 
-	s.Addr = ":1025"
-	s.Domain = "localhost"
-	s.ReadTimeout = 10 * time.Second
-	s.WriteTimeout = 10 * time.Second
-	s.MaxMessageBytes = 1024 * 1024
-	s.MaxRecipients = 50
-	s.AllowInsecureAuth = true
+	port := ":1025"
+	if os.Getenv("PORT") != "" {
+		port = ":" + os.Getenv("PORT")
+	}
 
-	log.Println("Starting server at", s.Addr)
-	if err := s.ListenAndServe(); err != nil {
+	host := "localhost"
+	if os.Getenv("HOST") != "" {
+		host = os.Getenv("HOST")
+	}
+
+	server.Addr = port
+	server.Domain = host
+	server.ReadTimeout = 10 * time.Second
+	server.WriteTimeout = 10 * time.Second
+	server.MaxMessageBytes = 1024 * 1024
+	server.MaxRecipients = 50
+	server.AllowInsecureAuth = true
+
+	log.Println("Starting server at", server.Addr)
+	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
 }
