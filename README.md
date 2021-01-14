@@ -1,4 +1,6 @@
 # Discord-SMTP Server
+![Lint, Test, Build and Publish Docker Image](https://github.com/kylegrantlucas/discord-smtp-server/workflows/Lint,%20Test,%20Build%20and%20Publish%20Docker%20Image/badge.svg?branch=main)
+
 A simple relay that accepts SMTP messages and forwards them to a Discord webhook.
 
 ## Usage
