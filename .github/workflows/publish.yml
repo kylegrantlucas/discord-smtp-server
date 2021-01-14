@@ -21,6 +21,7 @@ jobs:
           golangci-lint run
 
   test:
+    needs: lint
     ## We want to define a strategy for our job
     strategy:
       ## this will contain a matrix of all of the combinations
@@ -50,6 +51,7 @@ jobs:
       run: go test ./...
 
   build-and-publish:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     ## checks out our project source code
