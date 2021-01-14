@@ -1,5 +1,5 @@
 # Discord-SMTP Server
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/kylegrantlucas/discord-smtp-server/Lint,%20Test,%20Build%20and%20Publish%20Docker%20Image/main) ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kylegrantlucas/docker-smtp-server?sort=date) ![Docker Pulls](https://img.shields.io/docker/pulls/kylegrantlucas/discord-smtp-server)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/kylegrantlucas/discord-smtp-server/Lint,%20Test,%20Build%20and%20Publish%20Docker%20Image/main) ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kylegrantlucas/docker-smtp-server?sort=date) ![Docker Pulls](https://img.shields.io/docker/pulls/kylegrantlucas/discord-smtp-server) ![GitHub](https://img.shields.io/github/license/kylegrantlucas/discord-smtp-server)
 
 A simple relay that accepts SMTP messages and forwards them to a Discord webhook.
 
