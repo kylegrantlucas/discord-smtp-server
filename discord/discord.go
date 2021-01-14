@@ -13,7 +13,7 @@ type Client struct {
 }
 
 func NewClient(token string) (*Client, error) {
-	client, err := discordgo.New(token)
+	client, err := discordgo.New("Bot " + token)
 	if err != nil {
 		return nil, err
 	}
