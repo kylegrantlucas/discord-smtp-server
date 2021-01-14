@@ -19,14 +19,14 @@ docker run -t discord-smtp \
            -e DISCORD_TOKEN=xxxxxxxxxxxx \
            -e SMTP_USERNAME=username \
            -e SMTP_PASSWORD=password \
-           image
+           kylegrantlucas/discord-smtp-server
 ```
 
 #### Compose
 
 ```
 discord-smtp:
-  image: image
+  image: kylegrantlucas/discord-smtp-server
   container_name: discord-smtp
   env:
     - PORT=25
