@@ -15,7 +15,12 @@ func TestParse(t *testing.T) {
 		want    *EmailAddress
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			"Basic working example",
+			args{email: "smtp@alert.karenplankton"},
+			&EmailAddress{User: "smtp", Domain: "alert", TLD: "karenplankton"},
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
