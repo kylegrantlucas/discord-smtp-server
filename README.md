@@ -14,14 +14,19 @@ env DISCORD_TOKEN=xxxxxxxxxxxx SMTP_USERNAME=username SMTP_PASSWORD=password go 
 #### Run
 
 ```
-docker run -t discord-smtp -e PORT=25 -e DISCORD_TOKEN=xxxxxxxxxxxx -e SMTP_USERNAME=username -e SMTP_PASSWORD=password
+docker run -t discord-smtp \
+           -e PORT=25 \
+           -e DISCORD_TOKEN=xxxxxxxxxxxx \
+           -e SMTP_USERNAME=username \
+           -e SMTP_PASSWORD=password \
+           image
 ```
 
 #### Compose
 
 ```
 discord-smtp:
-  image:
+  image: image
   container_name: discord-smtp
   env:
     - PORT=25
