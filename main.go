@@ -10,7 +10,11 @@ import (
 )
 
 func main() {
-	be, err := smtp.NewBackend(os.Getenv("DISCORD_TOKEN"))
+	be, err := smtp.NewBackend(
+		os.Getenv("DISCORD_TOKEN"),
+		os.Getenv("SMTP_USERNAME"),
+		os.Getenv("SMTP_PASSWORD"),
+	)
 	if err != nil {
 		log.Fatal(err)
 	}

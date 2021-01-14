@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 
 	"github.com/emersion/go-smtp"
 	"github.com/kylegrantlucas/discord-smtp-server/discord"
@@ -16,9 +15,11 @@ import (
 
 type Backend struct {
 	discordClient *discord.Client
+	username      string
+	password      string
 }
 
-func NewBackend(discordToken string) (*Backend, error) {
+func NewBackend(discordToken, username, password string) (*Backend, error) {
 	discordClient, err := discord.NewClient(discordToken)
 	if err != nil {
 		return nil, err
@@ -26,25 +27,24 @@ func NewBackend(discordToken string) (*Backend, error) {
 
 	return &Backend{
 		discordClient: discordClient,
+		username:      username,
+		password:      password,
 	}, nil
 }
 
-// Login handles a login command with username and password.
-func (bkd *Backend) Login(state *smtp.ConnectionState, username, password string) (smtp.Session, error) {
-	if username != os.Getenv("SMTP_USERNAME") || password != os.Getenv("SMTP_PASSWORD") {
+func (b *Backend) Login(state *smtp.ConnectionState, username, password string) (smtp.Session, error) {
+	if username != b.username || password != b.password {
 		return nil, errors.New("Invalid username or password")
 	}
 	return &Session{
-		backend: bkd,
+		backend: b,
 	}, nil
 }
 
-// AnonymousLogin requires clients to authenticate using SMTP AUTH before sending emails
-func (bkd *Backend) AnonymousLogin(state *smtp.ConnectionState) (smtp.Session, error) {
+func (b *Backend) AnonymousLogin(state *smtp.ConnectionState) (smtp.Session, error) {
 	return nil, smtp.ErrAuthRequired
 }
 
-// A Session is returned after successful login.
 type Session struct {
 	backend *Backend
 	webhook string
@@ -88,9 +88,11 @@ func (s *Session) Data(r io.Reader) error {
 		return err
 	}
 
-	reqBody, err := json.Marshal(map[string]string{
-		"content": string(b),
-	})
+	reqBody, err := json.Marshal(
+		map[string]string{
+			"content": string(b),
+		},
+	)
 	if err != nil {
 		return err
 	}
