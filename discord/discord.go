@@ -30,7 +30,8 @@ func (c *Client) GetGuildID(guildName string) (*string, error) {
 	}
 
 	for _, guild := range guilds {
-		if strings.ReplaceAll(strings.ToLower(guild.Name), " ", "") == strings.ToLower(guildName) {
+		gn := strings.ReplaceAll(guild.Name, " ", "")
+		if strings.EqualFold(gn, guildName) {
 			return &guild.ID, nil
 		}
 	}
@@ -45,7 +46,7 @@ func (c *Client) GetChannelID(guildID, channelName string) (*string, error) {
 	}
 
 	for _, channel := range channels {
-		if strings.ToLower(channel.Name) == strings.ToLower(channelName) {
+		if strings.EqualFold(channel.Name, channelName) {
 			return &channel.ID, nil
 		}
 	}
@@ -62,7 +63,7 @@ func (c *Client) GetWebhook(username, channelID string) (*string, error) {
 	}
 
 	for _, hook := range webhooks {
-		if strings.ToLower(hook.Name) == strings.ToLower(username) {
+		if strings.EqualFold(hook.Name, username) {
 			webhook := fmt.Sprintf(
 				"https://discord.com/api/webhooks/%v/%v",
 				hook.ID,
