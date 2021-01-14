@@ -59,7 +59,7 @@ jobs:
     
     ## Builds our docker image!
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker-smtp-server:$(date +%s)
+      run: docker build . --file Dockerfile --tag kylegrantlucas/docker-smtp-server:$(date +%s)
 
     ## Publishes our image to Docker Hub
     - name: Publish to Registry
